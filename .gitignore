@@ -1,5 +1,6 @@
 Gemfile.lock
 .credential/credentials.yaml
+pixz-runtime
 *.gem
 *.rbc
 /.config
