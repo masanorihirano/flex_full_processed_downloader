@@ -50,3 +50,9 @@ download_time = (time2-time1)*24*60*60
 mbps = file_size/download_time
 puts "#{ARGV[0]}.tar.xz: #{sprintf("%.2f",file_size/1024)}GB, #{sprintf("%.2f",download_time.to_f)}sec., #{sprintf("%.2f",mbps.to_f)}MB/s"
 
+if ARGV.length == 1 then
+	# all
+	system("tar -xf #{save_path}")
+else
+	# partial
+end
