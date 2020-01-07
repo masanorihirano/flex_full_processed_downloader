@@ -1,5 +1,5 @@
 Gemfile.lock
-.credential/config.json
+.credential/credentials.yaml
 *.gem
 *.rbc
 /.config
