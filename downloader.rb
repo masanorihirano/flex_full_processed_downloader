@@ -1,6 +1,9 @@
+require "test/unit/assertions"
+include Test::Unit::Assertions
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'google/apis/drive_v3'
+require "date"
 
 TEAM_DRIVE_ID = "0AEJpBZKnwJBQUk9PVA"
 
@@ -32,5 +35,15 @@ file_list = service.list_files(
         include_team_drive_items: true,
         supports_team_drives: true)
 
-
-
+assert_equal(file_list.files.length, 1, message="Error in finding a file.")
+file_id = file_list.files[0].id
+save_path = File.expand_path("tmp/#{ARGV[0]}.tar.xz", __dir__)
+time1 = DateTime.now
+puts "#{time1.strftime('%Y/%m/%d %H:%M:%S')} File Download (#{ARGV[0]}) Started"
+service.get_file(file_id, download_dest:save_path)
+time2 = DateTime.now
+puts "#{time2.strftime('%Y/%m/%d %H:%M:%S')} File Download (#{ARGV[0]}) Ended"
+file_size = File.size(save_path)/(1024*1024)
+download_time = (time2-time1)*24*60*60
+mbps = file_size/download_time
+puts "#{ARGV[0]}.tar.xz: #{sprintf("%.2f",file_size/1024)}GB, #{sprintf("%.2f",download_time.to_f)}sec., #{sprintf("%.2f",mbps.to_f)}MB/s"
