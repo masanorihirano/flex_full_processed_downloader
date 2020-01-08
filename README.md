@@ -29,6 +29,11 @@ For example,
 ruby ~/flex_full_processed_downloader/downloader.rb 20150105 1301 1305 1306 1308 1309 1311 1312 1313 1319 1320 1321 1322 1323 1324 1325 1326 1327 1328 1329
 ```
 
+### If you want only status files in original processing, which contain daily indices
+```
+ruby (/path/to/this-repository/)downloader.py [day] stat
+```
+
 ## Note that
  - If you use this program for the first time, it require authorization of Google API. Please follow the leads, and log in with account under the controll of __**socsim.org**__ with access right to the team drive named `flex_full_processed`.
  - Download take about 10 sec. under usual internet connection
