@@ -59,7 +59,7 @@ if ARGV.length == 1 then
 	if File.exist?(File.expand_path("pixz-runtime", __dir__))
 		# multi
 		puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Extraction of #{ARGV[0]}.tar.xz started with multi thread"
-		system("pixz -x #{ARGV[0]} < #{save_path} | tar x")
+		system("#{File.expand_path("pixz-runtime", __dir__)} -x #{ARGV[0]} < #{save_path} | tar x")
 	else
 		# single
 		puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Extraction of #{ARGV[0]}.tar.xz started with single thread"
@@ -67,35 +67,44 @@ if ARGV.length == 1 then
 	end
 else
 	# partial
-	if File.exist?(File.expand_path("pixz-runtime", __dir__)) and ARGV.length-1 > 10 then
-		# multi
-		puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Partial extraction started with multi thread"
-		target = ""
-                ARGV.slice(1..ARGV.length-1).each{|ticker|
-                        target << " "
-                        target << "#{ARGV[0]}/Full#{ticker}.csv"
-                        target << " "
-                        target << "#{ARGV[0]}/Full#{ticker}_#{ARGV[0]}.txt"
-                }
-		system("echo '#{target}' | tr ' ' '\n' | sed -e '1d' | xargs -P #{Concurrent.physical_processor_count} -n #{((ARGV.length-1)*2 -1)/(Concurrent.physical_processor_count) + 1} tar xfv #{save_path}")
+	if ARGV[1] != "stat" then
+		if File.exist?(File.expand_path("pixz-runtime", __dir__)) and ARGV.length-1 > 10 then
+			# multi
+			puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Partial extraction started with multi thread"
+			target = ""
+                	ARGV.slice(1..ARGV.length-1).each{|ticker|
+                        	target << " "
+                        	target << "#{ARGV[0]}/Full#{ticker}.csv"
+                        	target << " "
+                        	target << "#{ARGV[0]}/Full#{ticker}_#{ARGV[0]}.txt"
+                	}
+			system("echo '#{target}' | tr ' ' '\n' | sed -e '1d' | xargs -I {} -P #{Concurrent.processor_count} sh -c '#{File.expand_path("pixz-runtime", __dir__)} -x {} < #{save_path} | tar x'")
+		else
+			# single
+			puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Partial extraction started with single thread"
+			target = ""
+			ARGV.slice(1..ARGV.length-1).each{|ticker|
+				target << " "
+				target << "#{ARGV[0]}/Full#{ticker}.csv"
+				target << " "
+				target << "#{ARGV[0]}/Full#{ticker}_#{ARGV[0]}.txt"
+			}
+			system("tar xfv #{save_path}#{target}")
+		end
 	else
-		# single
-		puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Partial extraction started with single thread"
-		target = ""
-		ARGV.slice(1..ARGV.length-1).each{|ticker|
-			target << " "
-			target << "#{ARGV[0]}/Full#{ticker}.csv"
-			target << " "
-			target << "#{ARGV[0]}/Full#{ticker}_#{ARGV[0]}.txt"
-		}
-		system("tar xfv #{save_path}#{target}")
+		#stat
+		if File.exist?(File.expand_path("pixz-runtime", __dir__)) then
+			# multi
+		else
+			# single
+		end
 	end
 end
 time4 = DateTime.now
 extraction_time = (time4-time3)*24*60*60
 puts "#{time4.strftime('%Y/%m/%d %H:%M:%S')}: Extraction (#{ARGV[0]}) ended\ntime: #{sprintf("%.2f",extraction_time.to_f)}sec."
 
-FileUtils.rm(save_path)
+#FileUtils.rm(save_path)
 time5 = DateTime.now
 total_time = (time5 -time0)*24*60*60
 puts "#{time5.strftime('%Y/%m/%d %H:%M:%S')}: All process (#{ARGV[0]}) ended\ntotal_time: #{sprintf("%.2f",total_time.to_f)}sec."
