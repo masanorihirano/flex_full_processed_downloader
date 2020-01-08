@@ -5,7 +5,7 @@
  - libarchive 2.8 or later (if use of multi processing; set-up command is written in `setup-full.sh`)
 
 ## Set up
-### If you want to use multi processing in extraction of archive file:
+### If you want to use multi processing or faster extraction in extraction of archive file:
 ```
 ./setup-all.sh
 ```
@@ -33,7 +33,7 @@ ruby ~/flex_full_processed_downloader/downloader.rb 20150105 1301 1305 1306 1308
  - If you use this program for the first time, it require authorization of Google API. Please follow the leads, and log in with account under the controll of __**socsim.org**__ with access right to the team drive named `flex_full_processed`.
  - Download take about 10 sec. under usual internet connection
  - Data extraction take about 5-10 min. with multi processors of usual computation resource
- - We strongly recommend the multi processing and all extraction when you want 30~ tickers' data
+ - We strongly recommend the multi processing.
  - Extraction of limitted numbers of tickers is slower than all extraction
  - All extraction usually make about 200 GB data folder
  - Each data of tickers are under 10 GB at maximum
