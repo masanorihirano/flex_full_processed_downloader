@@ -17,12 +17,12 @@
 ## Usage
 ### If you want all tick data in one day:
 ```
-ruby (/path/to/this-repository/)downloader.py [day, e.g., 20150105]
+ruby (/path/to/this-repository/)downloader.rb [day, e.g., 20150105]
 ```
 
 ### If you want only some ticker of all data in one day:
 ```
-ruby (/path/to/this-repository/)downloader.py [day] [tickers]
+ruby (/path/to/this-repository/)downloader.rb [day] [tickers]
 ```
 For example,
 ```
@@ -31,7 +31,7 @@ ruby ~/flex_full_processed_downloader/downloader.rb 20150105 1301 1305 1306 1308
 
 ### If you want only status files in original processing, which contain daily indices
 ```
-ruby (/path/to/this-repository/)downloader.py [day] stat
+ruby (/path/to/this-repository/)downloader.rb [day] stat
 ```
 
 ## Note that
