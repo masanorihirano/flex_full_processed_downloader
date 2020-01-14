@@ -56,10 +56,10 @@ puts "#{ARGV[0]}.tar.xz: #{sprintf("%.2f",file_size/1024)}GB, #{sprintf("%.2f",d
 time3 = DateTime.now
 if ARGV.length == 1 then
 	# all
-	if File.exist?(File.expand_path("pixz-runtime", __dir__))
+	if True then
 		# multi
 		puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Extraction of #{ARGV[0]}.tar.xz started with multi thread"
-		system("#{File.expand_path("pixz-runtime", __dir__)} -x #{ARGV[0]} < #{save_path} | tar x")
+		system("pixz -x #{ARGV[0]} < #{save_path} | tar x")
 	else
 		# single
 		puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Extraction of #{ARGV[0]}.tar.xz started with single thread"
@@ -78,7 +78,7 @@ else
 		if File.exist?(File.expand_path("pixz-runtime", __dir__)) and ARGV.length-1 > 10 then
 			# multi
 			puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Partial extraction started with multi thread"
-			system("echo '#{target}' | tr ' ' '\n' | sed -e '1d' | xargs -I {} -P #{Concurrent.processor_count} sh -c '#{File.expand_path("pixz-runtime", __dir__)} -x {} < #{save_path} | tar x'")
+			system("echo '#{target}' | tr ' ' '\n' | sed -e '1d' | xargs -I {} -P #{Concurrent.processor_count} sh -c 'pixz -x {} < #{save_path} | tar x'")
 		else
 			# single
 			puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Partial extraction started with single thread"
@@ -107,10 +107,10 @@ else
 			target << "-"
 			target << i.to_s
 		}
-		if File.exist?(File.expand_path("pixz-runtime", __dir__)) then
+		if True then
 			# multi
 			puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Partial extraction started with multi thread"
-			system("echo '#{target}' | tr ' ' '\n' | sed -e '1d' | xargs -I {} -P #{Concurrent.processor_count} sh -c '#{File.expand_path("pixz-runtime", __dir__)} -x #{ARGV[0]}/stat#{ARGV[0]}-{}.csv < #{save_path} 2>/dev/null | tar x > /dev/null 2>&1'")
+			system("echo '#{target}' | tr ' ' '\n' | sed -e '1d' | xargs -I {} -P #{Concurrent.processor_count} sh -c 'pixz -x #{ARGV[0]}/stat#{ARGV[0]}-{}.csv < #{save_path} 2>/dev/null | tar x > /dev/null 2>&1'")
 		else
 			# single
 			puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Partial extraction started with single thread"
