@@ -2,14 +2,23 @@
 
 ## Requirements
  - ruby + gem (Recommend: https://github.com/rbenv/rbenv )
- - libarchive 2.8 or later (if use of multi processing; set-up command is written in `setup-full.sh`)
+ - pixz
 
 ## Set up
-### If you want to use multi processing or faster extraction in extraction of archive file:
+At first, install pixz.
+
+For max
 ```
-./setup-all.sh
+brew install pixz
 ```
-### If you use this program only with single thread:
+
+For linux
+```
+sudo apt install pixz
+```
+or build using https://github.com/vasi/pixz
+
+Then,
 ```
 ./setup.sh
 ```
@@ -38,7 +47,6 @@ ruby (/path/to/this-repository/)downloader.rb [day] stat
  - If you use this program for the first time, it require authorization of Google API. Please follow the leads, and log in with account under the controll of __**socsim.org**__ with access right to the team drive named `flex_full_processed`.
  - Download take about 10 sec. under usual internet connection
  - Data extraction take about 5-10 min. with multi processors of usual computation resource
- - We strongly recommend the multi processing.
  - Extraction of limitted numbers of tickers is slower than all extraction
  - All extraction usually make about 200 GB data folder
  - Each data of tickers are under 10 GB at maximum
