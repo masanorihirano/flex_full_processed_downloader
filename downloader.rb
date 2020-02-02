@@ -75,7 +75,8 @@ else
 				target << " "
 				target << "#{ARGV[0]}/Full#{ticker}_#{ARGV[0]}.txt"
 		}
-		if File.exist?(File.expand_path("pixz-runtime", __dir__)) and ARGV.length-1 > 10 then
+		#if File.exist?(File.expand_path("pixz-runtime", __dir__)) and ARGV.length-1 > 10 then
+		if true then
 			# multi
 			puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Partial extraction started with multi thread"
 			system("echo '#{target}' | tr ' ' '\n' | sed -e '1d' | xargs -I {} -P #{Concurrent.processor_count} sh -c 'pixz -x {} < #{save_path} | tar x'")
