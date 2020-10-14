@@ -70,7 +70,7 @@ else
 		target = ""
 		ARGV.slice(1..ARGV.length-1).each{|ticker|
 				target << " "
-				target << "#{ARGV[0]}/#{ARGV[0]}_#{ticker}.txt"
+				target << "#{ARGV[0]}/#{ARGV[0]}_#{ticker}.csv"
 		}
 		#if File.exist?(File.expand_path("pixz-runtime", __dir__)) and ARGV.length-1 > 10 then
 		if true then
