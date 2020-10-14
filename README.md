@@ -1,4 +1,4 @@
-# flex_full_processed_downloader
+# flex_full_processed_downloader for 板再現データ
 
 ## Requirements
  - ruby + gem + bundler (Recommend: https://github.com/rbenv/rbenv )
@@ -35,8 +35,9 @@ ruby (/path/to/this-repository/)downloader.rb [day] [tickers]
 ```
 For example,
 ```
-ruby ~/flex_full_processed_downloader/downloader.rb 20150105 1301 1305 1306 1308 1309 1311 1312 1313 1319 1320 1321 1322 1323 1324 1325 1326 1327 1328 1329
+ruby ~/flex_full_processed_downloader/downloader.rb 20150105 1301 1305 1306 1308 1309 1311 1312 1313 1319 1319N 1319F 1319S 1320 1321 1322 1323 1324 1325 1326 1327 1328 1329
 ```
+N, F, S mean NSE, FSE, SSE.
 
 ### If you want only status files in original processing, which contain daily indices
 ```

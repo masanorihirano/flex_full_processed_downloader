@@ -9,7 +9,7 @@ require 'zlib'
 require 'concurrent'
 require "fileutils"
 
-TEAM_DRIVE_ID = "0AEJpBZKnwJBQUk9PVA"
+TEAM_DRIVE_ID = "0AMRwdQw5-J2iUk9PVA"
 
 OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'
 
@@ -67,13 +67,10 @@ if ARGV.length == 1 then
 	end
 else
 	# partial
-	if ARGV[1] != "stat" then
 		target = ""
 		ARGV.slice(1..ARGV.length-1).each{|ticker|
 				target << " "
-				target << "#{ARGV[0]}/Full#{ticker}.csv"
-				target << " "
-				target << "#{ARGV[0]}/Full#{ticker}_#{ARGV[0]}.txt"
+				target << "#{ARGV[0]}/#{ARGV[0]}_#{ticker}.txt"
 		}
 		#if File.exist?(File.expand_path("pixz-runtime", __dir__)) and ARGV.length-1 > 10 then
 		if true then
@@ -85,39 +82,6 @@ else
 			puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Partial extraction started with single thread"
 			system("tar xfv #{save_path}#{target}")
 		end
-	else
-		#stat
-		target = ""
-		(10..99).each{|i|
-			target << " "
-			target << i.to_s
-			target << "00-"
-			target << i.to_s
-			target << "99"
-		}
-		(100..999).each{|i|
-			target << " "
-			target << i.to_s
-			target << "0-"
-			target << i.to_s
-			target << "9"
-		}
-		(1000..9999).each{|i|
-			target << " "
-			target << i.to_s
-			target << "-"
-			target << i.to_s
-		}
-		if true then
-			# multi
-			puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Partial extraction started with multi thread"
-			system("echo '#{target}' | tr ' ' '\n' | sed -e '1d' | xargs -I {} -P #{Concurrent.processor_count} sh -c 'pixz -x #{ARGV[0]}/stat#{ARGV[0]}-{}.csv < #{save_path} 2>/dev/null | tar x > /dev/null 2>&1'")
-		else
-			# single
-			puts "#{time3.strftime('%Y/%m/%d %H:%M:%S')}: Partial extraction started with single thread"
-			system("tar xfv #{save_path}#{target}")
-		end
-	end
 end
 time4 = DateTime.now
 extraction_time = (time4-time3)*24*60*60
