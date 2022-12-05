@@ -29,6 +29,11 @@ Then,
 ruby (/path/to/this-repository/)downloader.rb [day, e.g., 20150105]
 ```
 
+When you use this for the first time, you will face the google authentication.
+After login to google account ending with socsim.org, you will be redirect to localhost url that is not working.
+In the localhost url, there are code which is necessary for authentication is exist.
+http://localhost/oauth2callback?code={code is here}&scope=https://www.googleapis.com/auth/drive
+
 ### If you want only some ticker of all data in one day:
 ```
 ruby (/path/to/this-repository/)downloader.rb [day] [tickers]
