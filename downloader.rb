@@ -11,7 +11,7 @@ require "fileutils"
 
 TEAM_DRIVE_ID = "0AEJpBZKnwJBQUk9PVA"
 
-OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'
+OOB_URI = 'http://localhost'
 
 token_store_file = File.expand_path('.credential/credentials.yaml', __dir__)
 scope = "https://www.googleapis.com/auth/drive"
